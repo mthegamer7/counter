@@ -1,76 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Death Counter</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      user-select: none;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Counter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
 
-    #counter {
-      font-size: 5rem;
-      font-weight: bold;
-      padding: 20px 40px;
-      border: 4px solid white;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      opacity: 1;
-      transition: opacity 0.4s ease-in-out;
-      will-change: opacity;
-    }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
 
-    .fade-out {
-      opacity: 0;
-    }
-  </style>
+        #deathCounter {
+            font-size: 64px;
+            color: #e74c3c;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .reset-btn {
+            background-color: #f39c12;
+        }
+
+        .reset-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
 </head>
 <body>
 
-<div id="counter">Deaths: 0</div>
+    <h1>Death Counter</h1>
+    <div id="deathCounter">Deaths: 0</div>
 
-<script>
-  let deaths = 0;
-  const counter = document.getElementById('counter');
+    <button class="btn" onclick="increaseDeathCount()">Player Died</button>
+    <button class="btn reset-btn" onclick="resetDeathCount()">Reset Counter</button>
 
-  function updateCounter() {
-    counter.classList.add('fade-out');
-    setTimeout(() => {
-      counter.textContent = `Deaths: ${deaths}`;
-      counter.classList.remove('fade-out');
-    }, 200);
-  }
+    <script>
+        let deathCount = 0;
 
-  // Make sure the event listener works properly in Streamlabs
-  window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') {
-      deaths++;
-      updateCounter();
-    }
-    if (e.code === 'KeyR') {
-      deaths = 0;
-      updateCounter();
-    }
-  });
+        // Increase the death count
+        function increaseDeathCount() {
+            deathCount++;
+            updateDeathDisplay();
+        }
 
-  // Ensure the counter is clickable for testing without keys
-  counter.addEventListener('click', () => {
-    deaths++;
-    updateCounter();
-  });
-</script>
+        // Update the display of death count
+        function updateDeathDisplay() {
+            document.getElementById('deathCounter').innerText = `Deaths: ${deathCount}`;
+        }
+
+        // Reset the death count
+        function resetDeathCount() {
+            deathCount = 0;
+            updateDeathDisplay();
+        }
+    </script>
 
 </body>
 </html>
