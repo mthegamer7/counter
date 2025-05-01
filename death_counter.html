@@ -8,69 +8,52 @@
       margin: 0;
       padding: 0;
       background: transparent;
-      overflow: hidden;
       width: 100%;
       height: 100%;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       display: flex;
-      justify-content: center;
       align-items: center;
-      color: white;
-      user-select: none;
+      justify-content: center;
+      overflow: hidden;
     }
 
     #counter {
-      font-size: 5rem;
+      color: white;
+      font-size: 4rem;
       font-weight: bold;
-      padding: 20px 40px;
-      border: 4px solid white;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      opacity: 1;
-      transition: opacity 0.4s ease-in-out;
-      will-change: opacity;
+      transition: opacity 0.3s ease;
     }
 
-    .fade-out {
+    .fade {
       opacity: 0;
     }
   </style>
 </head>
 <body>
+  <div id="counter">Deaths: 0</div>
 
-<div id="counter">Deaths: 0</div>
+  <script>
+    let count = 0;
+    const counter = document.getElementById('counter');
 
-<script>
-  let deaths = 0;
-  const counter = document.getElementById('counter');
-
-  function updateCounter() {
-    counter.classList.add('fade-out');
-    setTimeout(() => {
-      counter.textContent = `Deaths: ${deaths}`;
-      counter.classList.remove('fade-out');
-    }, 200);
-  }
-
-  // Make sure the event listener works properly in Streamlabs
-  window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') {
-      deaths++;
-      updateCounter();
+    function updateCounter() {
+      counter.classList.add('fade');
+      setTimeout(() => {
+        counter.textContent = `Deaths: ${count}`;
+        counter.classList.remove('fade');
+      }, 150);
     }
-    if (e.code === 'KeyR') {
-      deaths = 0;
-      updateCounter();
-    }
-  });
-  
-  // Ensure the counter is clickable for testing without keys
-  counter.addEventListener('click', () => {
-    deaths++;
-    updateCounter();
-  });
-</script>
 
+    // Local keyboard support (Space to increment, R to reset)
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space') {
+        count++;
+        updateCounter();
+      } else if (e.code === 'KeyR') {
+        count = 0;
+        updateCounter();
+      }
+    });
+  </script>
 </body>
 </html>
